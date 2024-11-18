@@ -9,7 +9,7 @@ blogRouter.post('/add-blog', blogCtrl.addblog);
 blogRouter.get('/view-blog', blogCtrl.viewblogPage);
 
 blogRouter.get('/edit-blog/:adminId', blogCtrl.editBlog);
-blogRouter.get('/delete-blog/:adminId', blogCtrl.deleteAdminData);
+blogRouter.get('/delete-blog/:adminId', blogCtrl.deleteBlog);
 
 blogRouter.get('/all-blog', blogCtrl.allblogPage);
 blogRouter.get('/blog/like/:id', blogCtrl.likeBlog);

@@ -47,18 +47,18 @@ module.exports.allblogPage = async (req, res) => {
 module.exports.editBlog = async (req, res) => {
     try {
         let { adminId } = req.params;
-        let adminData = await admin.findByIdAndUpdate(adminId, req.body);
-        return res.redirect('/view-blog');
+        let adminData = await blogs.findByIdAndUpdate(adminId, req.body);
+        return res.redirect('/view-blog',{adminData});
     } catch (error) {
         console.log(error);
         return res.redirect('/view-blog');
     }
 };
 
-module.exports.deleteAdminData = async (req, res) => {
+module.exports.deleteBlog = async (req, res) => {
     try {
         const { adminId } = req.params;
-        const deletedData = await admin.findByIdAndDelete(adminId);
+        const deletedData = await blogs.findByIdAndDelete(adminId);
 
         if (!deletedData) {
             return res.status(404).send("Admin data not found.");
