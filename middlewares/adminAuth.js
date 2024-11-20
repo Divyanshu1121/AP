@@ -1,8 +1,9 @@
 module.exports.adminAuth = (req, res, next) => {
-    const { adminId } = req.cookies || {};
+    let { adminId } = req.cookies
     if (adminId) {
         return next();
-    } else {
+    }
+    else {
         return res.redirect('/login');
     }
-};
+}

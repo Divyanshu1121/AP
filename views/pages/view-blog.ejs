@@ -1,24 +1,24 @@
 <%- include('../partials/header') %>
-    <div class="page-wrapper">
+<div class="page-wrapper">
         <!-- ============================================================== -->
         <!-- Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
         <div class="page-breadcrumb">
-            <div class="row">
-                <div class="col-12 d-flex no-block align-items-center">
-                    <h4 class="page-title">Tables</h4>
-                    <div class="ms-auto text-end">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    Library
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">Added Blog</h4>
+              <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      added blog
+                    </li>
+                  </ol>
+                </nav>
+              </div>
             </div>
+          </div>
         </div>
         <!-- ============================================================== -->
         <!-- End Bread crumb and right sidebar toggle -->
@@ -27,59 +27,54 @@
         <!-- Container fluid  -->
         <!-- ============================================================== -->
         <div class="container-fluid">
-            <!-- ============================================================== -->
-            <!-- Start Page Content -->
-            <!-- ============================================================== -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title mb-0">Static Table</h5>
-                        </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Content</th>
-                                    <th scope="col">Author</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% data.map((blog,index)=>{
-                                    let {title,content,author,id} = blog;
-                                    %>
-                                    <tr>
-                                        <td>
-                                            <%= title %>
-                                        </td>
-                                        <td>
-                                            <%= content %>
-                                        </td>
-                                        <td>
-                                            <%= author %>
-                                        </td>
-                                        <td>
-                                            <a href="/delete-blog/:adminId<%= id %>">Delete</a>
-                                            <a href="/edit-blog/:adminId<%= id %>">Edit</a>
-                                        </td>
-                                    </tr>
-                                    <% }) %>
-                            </tbody>
-                        </table>
-                    </div>
+          <!-- ============================================================== -->
+          <!-- Start Page Content -->
+          <!-- ============================================================== -->
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title mb-0">Updated Blog Table</h5>
                 </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Title</th>
+                      <th scope="col">Content</th>
+                      <th scope="col">Author</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   <% 
+                      data.map((blog,index)=>{ 
+                      let {title,content,author,id} = blog;
+                    %>
+                        <tr>
+                          <td><%= title %></td>
+                          <td><%= content %></td>
+                          <td><%= author %></td>
+                          <td>
+                            <a href="/blog/delete-blog/<%= id %>"><i class="far fa-trash-alt text-danger fs-2 ps-2"></i></a>
+                            <a href="/blog/edit-blog/<%= id %>"><i class="far fa-edit text-primery fs-2 ps-2"></i></a>
+                          </td>
+                        </tr>
+                   <% }) %>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- End PAge Content -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Right sidebar -->
-            <!-- ============================================================== -->
-            <!-- .right-sidebar -->
-            <!-- ============================================================== -->
-            <!-- End Right sidebar -->
-            <!-- ============================================================== -->
+          </div>
+          <!-- ============================================================== -->
+          <!-- End PAge Content -->
+          <!-- ============================================================== -->
+          <!-- ============================================================== -->
+          <!-- Right sidebar -->
+          <!-- ============================================================== -->
+          <!-- .right-sidebar -->
+          <!-- ============================================================== -->
+          <!-- End Right sidebar -->
+          <!-- ============================================================== -->
         </div>
-    </div>
-    <%- include('../partials/footer') %>
+      </div>
+<%- include('../partials/footer') %>

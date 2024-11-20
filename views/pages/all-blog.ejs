@@ -6,13 +6,13 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-12 d-flex no-block align-items-center">
-                    <h4 class="page-title">Tables</h4>
+                    <h4 class="page-title">All Blog Table</h4>
                     <div class="ms-auto text-end">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Library
+                                    all blog
                                 </li>
                             </ol>
                         </nav>
@@ -34,7 +34,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title mb-0">Static Table</h5>
+                            <h5 class="card-title mb-0">All Blogs </h5>
                         </div>
                         <table class="table">
                             <thead>
@@ -42,13 +42,13 @@
                                     <th scope="col">Title</th>
                                     <th scope="col">Content</th>
                                     <th scope="col">Author</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Like</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <% data.map((blog,index)=>{
-                                    let {title,content,author,id,likeBy} = blog;
-                                    let userHasLike = likeBy.includes(adminId)
+                                    let {title,content,author,likeBy,id} = blog;
+                                    let userLike = likeBy.includes(adminId)
                                     %>
                                     <tr>
                                         <td>
@@ -62,7 +62,7 @@
                                         </td>
                                         <td>
                                             <a href="/blog/<%= id %>">
-                                                <i class="<%= userHasLike ? 'fas' : 'far' %> fa-heart text-danger"></i>
+                                                <i class="<%= userLike ? 'fas' : 'far' %> fa-heart"></i>
                                             </a>
                                         </td>
                                     </tr>

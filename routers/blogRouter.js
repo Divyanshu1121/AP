@@ -1,17 +1,22 @@
 const { Router } = require("express");
-const blogCtrl = require('../controllers/blogController');
+const blogController = require("../controllers/blogController")
 
-const blogRouter = Router();
+const blogRouter = Router()
 
-blogRouter.get('/add-blog', blogCtrl.addblogPage);
-blogRouter.post('/add-blog', blogCtrl.addblog);
+blogRouter.get('/add-blog', blogController.addblogPage);
+blogRouter.post('/add-blog', blogController.addblog);
 
-blogRouter.get('/view-blog', blogCtrl.viewblogPage);
+blogRouter.get('/view-blog', blogController.viewblogPage);
 
-blogRouter.get('/edit-blog/:adminId', blogCtrl.editBlog);
-blogRouter.get('/delete-blog/:adminId', blogCtrl.deleteBlog);
+blogRouter.get('/delete-blog/:adminId', blogController.deleteblog);
 
-blogRouter.get('/all-blog', blogCtrl.allblogPage);
-blogRouter.get('/blog/like/:id', blogCtrl.likeBlog);
+blogRouter.get('/edit-blog/:adminId', blogController.editblogPage);
+blogRouter.post('/edit-blog/:adminId', blogController.editblog);
+
+
+blogRouter.get('/all-blog', blogController.allblogPage);
+
+
+blogRouter.get('/:id', blogController.likeBlog)
 
 module.exports = blogRouter;

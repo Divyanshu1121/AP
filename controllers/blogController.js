@@ -1,94 +1,105 @@
-const blogs = require("../models/blogSchema");
-const fs = require('fs');
+const Blog = require("../models/blogSchema");
 
 module.exports.addblogPage = (req, res) => {
-    let { adminId } = req.cookies || {};
-    console.log("Cookies:", req.cookies);
-    if (!adminId) {
-        console.log("Admin ID is undefined. Redirecting to login.");
-        return res.redirect('/login');
+    let { adminId } = req.cookies;
+    return res.render('./pages/add-blog', {
+        adminId
+    });
+}
+
+module.exports.addblog = async (req, res) => {
+    try {
+        let { adminId } = req.cookies;
+        await Blog.create(req.body);
+        console.log("blog is created");
+        return res.redirect('back')
+    } catch (error) {
+        console.log(error);
+        return res.redirect('back')
     }
-    return res.render('./pages/add-blog', { adminId });
-};
+}
 
 module.exports.viewblogPage = async (req, res) => {
     try {
         let { adminId } = req.cookies;
-        let data = await blogs.find({ adminId });
+        let data = await Blog.find({ adminId });
+        console.log(data)
         return res.render('./pages/view-blog', { data });
     } catch (error) {
         console.log(error);
         return res.render('./pages/view-blog');
     }
-};
-
-module.exports.addblog = async (req, res) => {
-    try {
-        await blogs.create(req.body);
-        console.log("Blog created.");
-        return res.redirect('./pages/add-blog');
-    } catch (error) {
-        console.log(error);
-        return res.redirect('./pages/add-blog');
-    }
-};
+}
 
 module.exports.allblogPage = async (req, res) => {
     try {
         let { adminId } = req.cookies;
-        let data = await blogs.find({});
+        let data = await Blog.find({});
         return res.render('./pages/all-blog', { data, adminId });
     } catch (error) {
         console.log(error);
         return res.render('./pages/all-blog');
     }
-};
+}
 
-module.exports.editBlog = async (req, res) => {
+module.exports.deleteblog = async (req, res) => {
     try {
         let { adminId } = req.params;
-        let adminData = await blogs.findByIdAndUpdate(adminId, req.body);
-        return res.redirect('/view-blog',{adminData});
+        let data = await Blog.findByIdAndDelete(adminId);
+        // console.log(data);
+        return res.redirect('back');
     } catch (error) {
         console.log(error);
-        return res.redirect('/view-blog');
-    }
-};
+        return res.redirect('back');
 
-module.exports.deleteBlog = async (req, res) => {
+    }
+}
+
+module.exports.editblogPage = async (req, res) => {
     try {
-        const { adminId } = req.params;
-        const deletedData = await blogs.findByIdAndDelete(adminId);
-
-        if (!deletedData) {
-            return res.status(404).send("Admin data not found.");
-        }
-        return res.redirect('/view-blog');
+        let { adminId } = req.params;
+        let data = await Blog.findById(adminId);
+        // console.log(data);
+        return res.render('./pages/edit-blog', { data });
     } catch (error) {
-        console.error(error);
-        return res.status(500).send("Error while deleting admin data.");
+        console.log(error);
+        return res.render('./pages/edit-blog');
     }
-};
+
+}
+
+module.exports.editblog = async (req, res) => {
+    try {
+        let { editId } = req.body;
+        let data = await Blog.findByIdAndUpdate(editId, req.body)
+        console.log(data);
+        return res.redirect("/blog/view-blog")
+    } catch (error) {
+        console.log(error);
+        return res.redirect("/blog/view-blog")
+    }
+}
+
 
 module.exports.likeBlog = async (req, res) => {
     try {
         let { id } = req.params;
-        let blog = await blogs.findById(id);
+        let blog = await Blog.findById(id);
         let { adminId } = req.cookies;
-
         let adminIndex = blog.likeBy.indexOf(adminId);
         console.log(blog);
 
-        if (adminIndex === -1) {
+        if (adminIndex == -1) {
             blog.likeBy.push(adminId);
-        } else {
+        }
+        else {
             blog.likeBy.splice(adminIndex, 1);
         }
-
         await blog.save();
+
         return res.redirect('/blog/all-blog');
     } catch (error) {
         console.log(error);
         return res.redirect('/blog/all-blog');
     }
-};
+}
